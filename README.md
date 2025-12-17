@@ -87,6 +87,19 @@ The system is fully synchronous to the 100 MHz FPGA clock, but internally divide
   Two onboard switches (SW0 and SW1) were added as custom project inputs to control the display. These switches are used as selection signals for a multiplexer that determines which data is routed to the display output.
   This required explicitly adding switch ports to the top-level VHDL entity and mapping them to physical pins in the XDC file.
 
+  <p align="center">
+  <img src="images/IMG_8061.jpeg" width="600">
+  </p>
+  <p align="center">
+  <img src="images/IMG_8062.jpeg" width="600">
+  </p>
+  <p align="center">
+  <img src="images/IMG_8063.jpeg" width="600">
+  </p>
+  <p align="center">
+  <img src="images/IMG_8064.jpeg" width="600">
+  </p>
+
 ## Outputs to the Nexys A7 Board
 
 - **ACL_MOSI, ACL_SCLK, ACL_SS**  
