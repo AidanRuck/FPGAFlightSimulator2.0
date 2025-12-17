@@ -157,7 +157,7 @@ A dedicated game tick is generated within `top.vhd`
 ---
 
 ## Game Logic (vga_flight_path.vhd)
-This module uses the 60 Hz `game_tick` to control game updates and handles:
+This module uses the 60 Hz game_tick to control game updates and handles:
 - Target positioning
 - Collision detection
 - Score tracking
@@ -205,7 +205,7 @@ Rendering runs continuously and independently of game logic.
 - 7-segment display:
   - SW[1:0] selects which accelerometer data is shown (X only, Y only, Z only, or all axes)
   - Accelerometer data is binned and converted to BCD
-  - Multiplexed using `leddec16`
+  - Multiplexed using leddec16
 - LED[15:0]
   - Displays current score directly from the hardware register
 
