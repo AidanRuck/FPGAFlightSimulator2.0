@@ -6,16 +6,16 @@ Made by Nicholas Scirocco and Aidan Ruck
 ---
 
 ## Overview
-Flight Simulator 2.0 expands upon the original servo-based design into a full VGA-rendered, hardware-only flight 'game' with stable motion, collision detection, and scoring. This project is an extension of the original [FPGA-based accelerometer interface and feedback control system](https://github.com/alionaheitz/CPE487Project), and represents a full hardware-only fight simulation implemented on the Nexys A7-100T. Using the onboard ADXL362 3-axis accelerometer, real-time tilt data is sampled, filtered, quantized, and finally translated into stable motion rendered through the VGA display. Elements such as the targets (blue circles), collision detection, and scoring are all implemented directly in VHDL.
+Flight Simulator 2.0 expands upon the original servo-based design into a full VGA-rendered, hardware-only flight 'game' with stable motion, collision detection, and scoring. This project is an extension of the original [FPGA-based accelerometer interface and feedback control system](https://github.com/alionaheitz/CPE487Project), and represents a full hardware-only flight simulation implemented on the Nexys A7-100T. Using the onboard ADXL362 3-axis accelerometer, real-time tilt data is sampled, thresholded, quantized, and finally translated into stable motion rendered through the VGA display. Elements such as the targets (blue circles), collision detection, and scoring are all implemented directly in VHDL.
 
 Compared to the original version, Flight Simulator 2.0 introduces:
-- Smoothed and quantized accelerometer control
+- Stable and quantized accelerometer control
 - VGA-based aircraft visualization
 - Discrete movement bins instead of raw sensor values
 - Game logic such as targets, collisions, and scoring
 - Multiple timing domains for stability and realism
 
-*insert visualization
+
 
 ---
 
@@ -66,7 +66,7 @@ The system is fully synchronous to the 100 MHz FPGA clock, but internally divide
 - vga_flight_path.vhd - Game logic (targets, collisions, and scoring)
 - vga_sync.vhd - VGA timing generator (640x480 at 60 Hz)
 - vga_draw.vhd - Combinational VGA rendering logic
-- leddec16.vhd - 7segment display multiplexing
+- leddec16.vhd - 7 segment display multiplexing
 - constraints.xdc - Pin mappings for VGA, switches, LEDs, and SPI
 
 ---
@@ -200,7 +200,7 @@ Raw accelerometer data is incredibly noisy and constantly changing. Through quan
 - Produce more predictable movement
 - Simplify hardware logic
 
-### Why Separate Clock Domains?
+### Why Use Multiple Timing Rates?
 Different parts of the system operate at different update rates that are appropriate for their function. VGA rendering uses a pixel clock, aircraft movement updates occur at a slower controlled rate, and game logic updates run at 60 Hz. This separation improves visual stability and prevents motion or gameplay from updating too quickly.
 
 ---
