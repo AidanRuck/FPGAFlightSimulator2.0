@@ -84,6 +84,7 @@ The system is fully synchronous to the 100 MHz FPGA clock, but internally divide
   Receives serial accelerometer data from the onboard ADXL362 through the SPI interface for real-time sensor sampling.
 
 - **SW(1 downto 0)– Added Input**
+  
   Two onboard switches (SW0 and SW1) were added as custom project inputs to control the display. These switches are used as selection signals for a multiplexer that determines which data is routed to the display output.
   This required explicitly adding switch ports to the top-level VHDL entity and mapping them to physical pins in the XDC file.
 
@@ -111,10 +112,10 @@ The system is fully synchronous to the 100 MHz FPGA clock, but internally divide
 - **PWM_OUT**  
   Outputs a pulse-width modulated control signal derived from accelerometer data.
 
-- **VGA_R(3 downto 0), VGA_G(3 downto 0), VGA_B(3 downto 0)**  
+- **VGA_R(3 downto 0), VGA_G(3 downto 0), VGA_B(3 downto 0) - Added Output**  
   Provide RGB color data for rendering the flight simulation graphics.
 
-- **VGA_HS, VGA_VS**  
+- **VGA_HS, VGA_VS - Added Output**  
   Generate horizontal and vertical synchronization signals required for proper VGA display timing.
 
 - **LED(15 downto 0) - Added Output**  
