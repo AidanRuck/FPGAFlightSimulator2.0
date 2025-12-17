@@ -146,14 +146,14 @@ This module uses the 60 Hz `game_tick` to control game updates and handles:
     - A Linear Feedback Shift Register (LFSR) shifts its stored bits each step and computes a new input bit using XOR feedback from selected bit positions.
 - Starts from a fixed seed value (x"ACE1")
     - The value x"ACE1" was chosen as a non-zero seed to ensure the LFSR does not lock into an all-zero state, which would stop the sequence from advancing.
-- Advances once per `tick` (60 Hz), making the sequence deterministic and repeatable
+- Advances once per tick (60 Hz), making the sequence deterministic and repeatable
 - On a collision, uses the current LFSR bits to generate a new on-screen target position within screen margins
 
 ### Collision Detection
 - Converts aircraft X/Y bins into pixel coordinates
 - Treats the target as a circle and the aircraft as a bounding box
 - Detects a hit when the circle overlaps the aircraft box
-- Generates a one-cycle `collected_pulse` on collision
+- Generates a one-cycle collected_pulse on collision
 
 On collision:
 1. Score register increments
