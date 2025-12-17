@@ -97,7 +97,7 @@ The system is fully synchronous to the 100 MHz FPGA clock, but internally divide
   <img src="images/IMG_8063.jpeg" width="600">
   </p>
   <p align="center">
-  <img src="images/IMG_8064.jpeg" width="600">
+  <img src="images/IMG_8060.jpeg" width="600">
   </p>
 
 ## Outputs to the Nexys A7 Board
@@ -119,6 +119,10 @@ The system is fully synchronous to the 100 MHz FPGA clock, but internally divide
 
 - **LED(15 downto 0) - Added Output**  
   Displays the internally stored game score, which increments when the aircraft collects rings.
+
+  <p align="center">
+  <img src="images/IMG_8064.jpeg" width="600">
+  </p>
 
 ---
 
