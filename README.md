@@ -15,7 +15,9 @@ Compared to the original version, Flight Simulator 2.0 introduces:
 - Game logic such as targets, collisions, and scoring
 - Multiple timing domains for stability and realism
 
-
+<p align="center">
+  <img src="images/IMG_8055.jpeg" width="600">
+</p>
 
 ---
 
@@ -26,7 +28,9 @@ Compared to the original version, Flight Simulator 2.0 introduces:
 - Controls: Board tilt and onboard switches
 - Scoring: LED[15:0]
 
-*insert gif
+<p align="center">
+  <img src="images/af8aie.gif" width="700">
+</p>
 
 ---
 
