@@ -253,66 +253,19 @@ Different parts of the system operate at different update rates that are appropr
 ---
 
 ## Conclusion
-FPGA Flight Simulator 2.0 successfully transforms raw sensor input into a stable, interactive hardware-based 'game.' ...
+FPGA Flight Simulator 2.0 successfully transforms raw accelerometer data into a stable, interactive, hardware-based flight simulation. The project demonstrates effective use of FPGA design techniques such as clock division, data quantization, VGA rendering, and collision-based game logic implemented entirely in VHDL. Overall, this system highlights how real-time sensor input can be processed and visualized using only hardware on the Nexys A7 platform.
 
 ---
 
 ## Resources
-- SPI / ADXL362/ NexysA7 logic [Youtube video](https://www.youtube.com/watch?v=7b3YwQWwvXM)
-  - This was used by the previous group
+- First and foremost this project was directly adapted from the previously built [FPGA-based accelerometer interface and feedback control system](https://github.com/alionaheitz/CPE487Project) project. This project was extremely well done and we wanted to try and improve on it as much as we could. Many of the core features such as the SPI implementation were adopted right from this project and we want to give credit for this very strong foundation of a project.
+- Many aspects of this project were inspired and implemented from prior work done in CPE 497. For example the vga_sync module was taken from our Lab 6. Throughout the development of the project, we constantly refered back to prior work done to help us create the best final product we could.
+- In addition to this, generative AI was used as a tool throughout both the development and documentation of this project. It was especially helpful in bridging the knowledge gap from ideas in our head to actual VHDL implementation. For example, we wanted the flight path circles to be randomly generated upon collision with the aircraft, and generative AI assisted us in evaluating different methods before settling on an LFSR-based solution that it helped us implement. As with all things AI, it was not always perfect and sometimes tried to implement techniques that we were not as familiar with. When this happened we did our best to either adapt the ideas to techniques we knew, or did our best to learn new VHDL techniques to expand our learning the best we could.
+- CPE 487 Labs and Assignments
 - [ADXL362 Datasheet](adxl362.pdf)
 - [Nexys A7 Reference Manual](https://digilent.com/reference/programmable-logic/nexys-a7/reference-manual)
-
 ---
----
----
----
-This is all of the previous group's work, not yet deleted such that we may continue to add to our report.
-## Getting Started
-- The system takes input from the onboard ADXL362 3-axis accelerometer and the default 100 MHz clock signal. 
-   -  Clock division was handled by a custom clk_gen.vhd module that divides the 100 MHz input clock down to 4 MHz using a simple counter-based divider.
-   - SPI communication was implemented in spi_master.vhd via a hand-coded 92-state FSM, controlling every SPI timing signal (SCLK, MOSI, SS) and reading all 6 bytes (2 bytes per axis) using burst mode. No IP blocks were used for SPI, the FSM transitions were manually optimized for state latency and edge alignment with SCLK.
-   - Each physical input/output was mapped using the .xdc file by matching get_ports constraints to pin numbers from the diligent master XDC.
-   - Initial testing was done incrementally. The SPI state machine was validated by assigning output registers (acl_dataX) directly to LEDs for binary visualization.
-   - Later, display multiplexing and logic were added in leddec16.vhd, and seven-segment digits were verified through the bcd32 packaging. The project was synthesized, implemented, and the bitstream was uploaded using Vivado Hardware Manager, with hardware testing performed live on the board using physical switch flips, servo response, and live LED.
-- VHDL code was written from scratch, starting with research into SPI communication and the ADXL362 sensor's functionality. Found a helpful [Youtube video](https://www.youtube.com/watch?v=7b3YwQWwvXM) which provided insight into interfacing the ADXL362 with the Nexys A7. Core components like FSMs, clock division, LED control, and 7-segment display logic were implemented using skills learned in the course. Additional research was conducted to understand how to generate PWM signals for servo motor control.
 
----------
-## Implementation
-
-### Data Collection (spi_master)
-- Communicates with ADXL362 via SPI Mode 0 at 1 MHz clock
-- Performs burst reads: 2 bytes per axis (X, Y, Z), totaling 6 bytes
-- Implements a 92‑state FSM to configure and read sensor data
-- Output data rates is 100 Hz with an acceleration range of ±2g
-
- ![Alt text](FSM.png)
-
-
-### Data Display
-- **7‑Segment Display (leddec16)**
-  - Converts each 5 bit axis value into two BCD digits via division/modulo.
-  - Packs eight nibbles into a 32‑bit vector and time‑multiplexes across digits.
-- **LED Array**
-  - SW[2:0] chooses which axis to show: "001"→X, "010"→Y, "100"→Z.
-  - Lights each LED bit high/low according to the raw binary data.
-
-### Servo Control (controller)
-- Compares X‑axis acceleration against ±threshold to decide left/center/right.
-- Smoothly generates a PWM duty cycle corresponding to 1 ms, 1.5 ms, or 2 ms pulses at 50 Hz.
-- Outputs `PWM_OUT` for hobby servo actuation.
-
----------
-## Results
-![servo.gif](v1-ezgif.com-optimize.gif)
-- Servo motor responds to X-axis tilt by adjusting its position via PWM signal
-  
-![led.gif](v2-ezgif.com-optimize.gif)
-- 16 onboard LEDs display X-axis data in binary; gradual rotation increases or decreases the LED pattern accordingly
-
-![servo.gif](v3-ezgif.com-optimize.gif)
-![servo.gif](v4-ezgif.com-optimize.gif)
-- 7-segment display shows real-time X, Y, and Z accelerometer values, with visible shifts toward minimum or maximum values as the board is rotated
   
 
 
