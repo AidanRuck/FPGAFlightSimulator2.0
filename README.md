@@ -130,7 +130,10 @@ The system is fully synchronous to the 100 MHz FPGA clock, but internally divide
 ## Input Smoothing and Quantization
 
 Rather than using raw accelerometer values directly, the system:
-- Applies a ±200 raw-count threshold to each accelerometer axis to ignore small sensor noise
+- Compares raw accelerometer values (x_raw, y_raw) against a ±200 count threshold
+  - If the tilt is greater than +200, the plane moves in the positive direction
+  - If the tilt is less than −200, the plane moves in the negative direction
+  - If the tilt is between −200 and +200, the plane does not move
 - Converts tilt into discrete movement steps of −1, 0, or +1
 - Stores the aircraft position in bounded position bins ranging from −8 to +8
 - Clamps position updates at the limits to prevent wraparound
